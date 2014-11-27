@@ -2,10 +2,20 @@
 
 class Route
 {
-    static function start()
+    public static function start()
     {
         $controller_name = "Main";  //Контроллер поумолчанию
         $action_name = "index";     //Метод поумолчанию
+        
+        $routes = explode('/', $_SERVER['REQUEST_URI']);    //чтение адреса
+
+        if(!empty($routes[1])){
+            $controller_name = $routes[1];
+        }
+        
+        if(!empty($routes[2])){
+            $action_name = $routes[2];
+        }
         
         $model_name = "Model_" . $controller_name;          //Имя модели с префиксом
         $controller_name = "Controller_" . $controller_name;//Имя контроллера с префиксом
