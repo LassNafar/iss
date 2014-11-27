@@ -9,3 +9,4 @@ require_once "core/view.php";
 require_once "route.php";
 
 Route::start();
+echo "hell_world";
