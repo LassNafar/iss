@@ -2,7 +2,8 @@
 
 class Route
 {
-    static function start(){
+    static function start()
+    {
         $controller_name = "Main";  //Контроллер поумолчанию
         $action_name = "index";     //Метод поумолчанию
         
@@ -14,8 +15,7 @@ class Route
         $model_file = strtolower($model_name) . ".php";
         $model_path = "models/" . $model_file;
         
-        if(file_exists($model_path))
-        {
+        if (file_exists($model_path)){
             include $model_path;
         }
         
@@ -23,8 +23,7 @@ class Route
         $controller_file = strtolower($controller_name) . ".php";
         $controller_path = "controllers/" . $controller_file;
 
-        if(file_exists($controller_path))
-        {
+        if(file_exists($controller_path)){
             include $controller_path;
         }
         
@@ -33,8 +32,7 @@ class Route
         $action = $action_name;
         
         /*вызыв метода контроллера*/
-        if(method_exists($controller, $action))
-        {
+        if(method_exists($controller, $action)){
             $controller->$action();
         }
     }
