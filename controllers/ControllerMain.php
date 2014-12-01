@@ -3,7 +3,7 @@ namespace controllers;
 
 use core\Controller;
 use core\View;
-use models\MdelMain;
+use models\ModelMain;
 
     class ControllerMain extends Controller
     {
@@ -18,7 +18,6 @@ use models\MdelMain;
         {
             $data = $this->model->get_Data();
             $this->view->generate("MainView.php","TemplateView.php", $data);
-            echo 111;
         }
 
     }

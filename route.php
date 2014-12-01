@@ -21,7 +21,7 @@ class Route
         $model_name = "Model" . $controller_name;          //Имя модели с префиксом
         $controller_name = "Controller" . $controller_name;//Имя контроллера с префиксом
         $action_name = "action_" . $action_name;            //Имя метода с префиксом
-       
+
         $controller_name = "\\controllers\\" . $controller_name;
 
         $controller = new  $controller_name();

@@ -1,8 +1,3 @@
 <?php
-
-require_once "autoloader.php";
-
-
-require_once "route.php";
-
-Route::start();
+ini_set('display_errors', 1);
+require_once 'application.php';
