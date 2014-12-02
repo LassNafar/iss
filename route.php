@@ -2,6 +2,9 @@
 
 class Route
 {
+    /**
+     * @run method
+    **/
     public static function start()
     {
         $controller_name = "Main";  //Контроллер поумолчанию
@@ -31,5 +34,14 @@ class Route
         if(method_exists($controller, $action)){
             $controller->$action();
         }
+    }
+    /**
+     * @param $url
+     * @run method
+    **/
+    public static function restart($url)
+    {
+        $url = $_SERVER['SERVER_NAME'] . "/" . $url; 
+        header("Location: http://" . $url);
     }
 }

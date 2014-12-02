@@ -1,5 +1,5 @@
 <?php
-    
+
     class autoload
     {
         private static $path;
@@ -12,7 +12,7 @@
             }
             else {
                 $routes = explode('/', $_SERVER['REQUEST_URI']);
-                header("Location: http://localhost/404");
+                route::restart('404');
             }
         }
     }

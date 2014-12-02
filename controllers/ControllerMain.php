@@ -7,13 +7,19 @@ use models\ModelMain;
 
     class ControllerMain extends Controller
     {
-
+        /**
+         * @create view
+         * @create model
+        **/
         public function __construct()
         {
             $this->view = new View;
             $this->model = new ModelMain;
-        } 
-
+        }
+        
+        /**
+         * @load Main
+        **/
         public function action_index() 
         {
             $data = $this->model->get_Data();
