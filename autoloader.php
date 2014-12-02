@@ -10,10 +10,6 @@
                 //echo self::$path;
                 require_once self::$path;
             }
-            else {
-                $routes = explode('/', $_SERVER['REQUEST_URI']);
-                route::restart('404');
-            }
         }
     }
     
