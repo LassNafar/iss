@@ -49,7 +49,7 @@ class Route
     }
 
     /**
-     * @return url-controller&&method
+     * @return controller&&method is url
     **/    
     public function url(){
         $routes = explode('/', $_SERVER['REQUEST_URI']);
@@ -63,7 +63,7 @@ class Route
     }
     
     /**
-     * @return array-controller&&method
+     * @return controller&&method is array
     **/    
     public function redirect(){
         $this->url();
