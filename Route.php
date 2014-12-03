@@ -13,10 +13,10 @@ class Route
     /**
      * @run method
     **/
-    public function start()
+    public function start($config)
     {
-        $this->controllerName = "Main";  //Контроллер поумолчанию
-        $this->actionName = "index";     //Метод поумолчанию
+        $this->controllerName = $config["main"]["Controller"];  //Контроллер поумолчанию
+        $this->actionName = $config["main"]["Action"];     //Метод поумолчанию
         
         $this->redirect();
         
@@ -55,7 +55,7 @@ class Route
         $routes = explode('/', $_SERVER['REQUEST_URI']);
         if(!empty($routes[1])){
             $this->controllerName = urldecode($routes[1]);
-            echo $this->controllerName;
+            
             if(!empty($routes[2])){
                 $this->actionName = urldecode($routes[2]);
             }
