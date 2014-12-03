@@ -8,7 +8,7 @@ use core\Model;
         /**
          * @return date
         **/
-        public function get_Data()
+        public function getData()
         {
             return "16.05.90";
         }

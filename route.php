@@ -1,28 +1,31 @@
 <?php
 
+use \controllers\Controller404;
+
 class Route
 {
     
-    public $controller_name;
-    public $action_name;
+    public $controllerName;
+    public $actionName;
     
-    public $_arrayUrl = array ("праздник" => array("Happy","index"),
+    public $arrayUrl = array ("праздник" => array("Happy","index"),
                                "мэйн" => array("Main","index"));
     /**
      * @run method
     **/
     public function start()
     {
-        $this->controller_name = "Main";  //Контроллер поумолчанию
-        $this->action_name = "index";     //Метод поумолчанию
+        $this->controllerName = "Main";  //Контроллер поумолчанию
+        $this->actionName = "index";     //Метод поумолчанию
         
         $this->redirect();
         
-        $this->controller_name = "\\controllers\\Controller" . ucfirst($this->controller_name);//Имя контроллера с префиксом
-        $this->action_name = "action_" . $this->action_name;            //Имя метода с префиксом
-
-        if($controller = new  $this->controller_name()){
-            $action = $this->action_name;
+        $this->controllerName = "\\controllers\\Controller" . ucfirst ($this->controllerName);//Имя контроллера с префиксом
+        $this->actionName = "action" . ucfirst ($this->actionName);            //Имя метода с префиксом
+                
+        if (class_exists ($this->controllerName)){
+            $controller = new  $this->controllerName;
+            $action = $this->actionName;
             
             /*вызыв метода контроллера*/
             if(method_exists($controller, $action)){
@@ -36,45 +39,43 @@ class Route
             $this->none();
         }
     }
-    
+
+    /**
+     * @run 404
+    **/
     public function none(){
-        $controller = new \controllers\Controller404;
-        $controller->action_index();
+        $controller = new Controller404;
+        $controller->actionIndex();
     }
 
-
+    /**
+     * @return url-controller&&method
+    **/    
     public function url(){
         $routes = explode('/', $_SERVER['REQUEST_URI']);
         if(!empty($routes[1])){
-            $this->controller_name = $routes[1];
-            
+            $this->controllerName = urldecode($routes[1]);
+            echo $this->controllerName;
             if(!empty($routes[2])){
-                $this->action_name = $routes[2];
-            }
-        }
-    }
-    
-    public function redirect(){
-        $this->url();
-        
-        foreach($this->_arrayUrl as $key => $val){
-            if($this->controller_name == $key){
-                $this->controller_name = $val[0];
-                
-                if(!empty($val[1])){
-                    $this->action_name = $val[1];
-                }
+                $this->actionName = urldecode($routes[2]);
             }
         }
     }
     
     /**
-     * @param $url
-     * @run method
-    **/
-    public static function restart($url)
-    {
-        $url = $_SERVER['SERVER_NAME'] . "/" . $url; 
-        header("Location: http://" . $url);
+     * @return array-controller&&method
+    **/    
+    public function redirect(){
+        $this->url();
+        
+        foreach($this->arrayUrl as $key => $val){
+            if($this->controllerName == $key){
+                $this->controllerName = $val[0];
+                
+                if(!empty($val[1])){
+                    $this->actionName = $val[1];
+                }
+            }
+        }
     }
 }

@@ -20,9 +20,9 @@ use models\ModelMain;
         /**
          * @load Main
         **/
-        public function action_index() 
+        public function actionIndex() 
         {
-            $data = $this->model->get_Data();
+            $data = $this->model->getData();
             $this->view->generate("MainView.php","TemplateView.php", $data);
         }
 

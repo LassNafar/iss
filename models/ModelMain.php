@@ -8,7 +8,7 @@ class ModelMain extends Model
     /**
      * @return date
     **/
-    public function get_Data()
+    public function getData()
     {
         return "27.11.14";
     }

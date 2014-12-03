@@ -18,7 +18,7 @@ use core\View;
         /**
          * @load 404
         **/
-        public function action_index ()
+        public function actionIndex ()
         {
             $data = "404 NOT FOUND";
             $this->view->generate("404View.php","TemplateView.php", $data);

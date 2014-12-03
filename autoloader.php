@@ -1,6 +1,6 @@
 <?php
 
-    class autoload
+    class Autoload
     {
         private static $path;
         
@@ -13,7 +13,7 @@
         }
     }
     
-    spl_autoload_register (array('autoload', 'load'));
+    spl_autoload_register (array('Autoload', 'load'));
     
     
 

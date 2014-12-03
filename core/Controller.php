@@ -11,7 +11,7 @@ namespace core;
         
         }
 
-        public function action_index()
+        public function actionIndex()
         {
 
         }

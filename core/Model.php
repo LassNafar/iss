@@ -3,7 +3,7 @@ namespace core;
 
     class Model
     {
-        public function get_Data()
+        public function getData()
         {
 
         }
