@@ -7,28 +7,26 @@ class Route
     
     public $controllerName;
     public $actionName;
+    public $setting;
     
     public $arrayUrl = array ("праздник" => array("Happy","index"),
                                "мэйн" => array("Main","index"));
     /**
      * @run method
     **/
-    public function start($config)
+    public function start()
     {
-        $this->controllerName = $config["main"]["Controller"];  //Контроллер поумолчанию
-        $this->actionName = $config["main"]["Action"];     //Метод поумолчанию
-        
         $this->redirect();
-        
-        $this->controllerName = "\\controllers\\Controller" . ucfirst ($this->controllerName);//Имя контроллера с префиксом
-        $this->actionName = "action" . ucfirst ($this->actionName);            //Имя метода с префиксом
-                
+        /*проверка существования класса и создание экземпляра*/
         if (class_exists ($this->controllerName)){
             $controller = new  $this->controllerName;
+            $controller -> settings = $this->param();
+            $controller -> settings["controller"] = $this->controllerName;
             $action = $this->actionName;
             
-            /*вызыв метода контроллера*/
+            /*вызыв метода контроллера и проверка его существования*/
             if(method_exists($controller, $action)){
+                $controller -> settings["action"] = $action;
                 $controller->$action();
             }
             else{
@@ -39,20 +37,42 @@ class Route
             $this->none();
         }
     }
-
+    
+    public function param()
+    {   
+        /*извлекаем из url массив входных параметров*/
+        $get = $_SERVER['QUERY_STRING'];
+        if(!empty($get)){
+            $str = explode('&&', $get);
+            for($i=0;$i<count($str);$i++){
+                $strstr = explode('=', $str[$i]);
+                $settings[$strstr[0]] = $strstr[1]; 
+            }
+            return $settings;
+        }
+        else{
+            return false;
+        }
+    }
     /**
      * @run 404
     **/
     public function none(){
         $controller = new Controller404;
         $controller->actionIndex();
+        $controller -> settings = $this->param();
+        $controller -> settings["controller"] = "Controller404";
+        $controller -> settings["action"] = "actionIndex";
     }
 
     /**
-     * @return controller&&method is url
+     * @return controller&&method name is url
     **/    
     public function url(){
-        $routes = explode('/', $_SERVER['REQUEST_URI']);
+        $this->controllerName = "Main";  //Контроллер поумолчанию
+        $this->actionName = "Index";     //Метод поумолчанию
+        /*извлекаем контроллер и метод из url*/
+        $routes = explode('/', str_replace("?" . $_SERVER['QUERY_STRING'], "", $_SERVER['REQUEST_URI']));
         if(!empty($routes[1])){
             $this->controllerName = urldecode($routes[1]);
             
@@ -63,7 +83,7 @@ class Route
     }
     
     /**
-     * @return controller&&method is array
+     * @return controller&&method name is array
     **/    
     public function redirect(){
         $this->url();
@@ -77,5 +97,8 @@ class Route
                 }
             }
         }
+        /*Добавление префиксов к именам контроллера и метода*/
+        $this->controllerName = "\\controllers\\Controller" . ucfirst ($this->controllerName);
+        $this->actionName = "action" . ucfirst ($this->actionName);
     }
 }

@@ -4,4 +4,4 @@ $config = array ("main" => array("Controller" => "Main",
                                  "Action" => "Index")); 
 
 $application = new Route;
-$application->start($config);
+$application->start();

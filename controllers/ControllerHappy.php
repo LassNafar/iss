@@ -7,6 +7,8 @@ use models\ModelHappy;
 
     class ControllerHappy extends Controller
     {
+        public $settings;
+        
         /**
          * @create view
          * @create model
@@ -22,8 +24,8 @@ use models\ModelHappy;
         **/
         public function actionIndex ()
         {
-            $data = $this->model->getData();
-            $this->view->generate("MainView.php","TemplateView.php", $data);
+           $this->settings['data'] = $this->model->getData();
+           $this->view->generate("MainView.php","TemplateView.php", $this->settings);
         }
     }
 
