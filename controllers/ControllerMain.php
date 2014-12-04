@@ -7,6 +7,7 @@ use models\ModelMain;
 
     class ControllerMain extends Controller
     {
+        public $settings;
         /**
          * @create view
          * @create model
@@ -22,8 +23,8 @@ use models\ModelMain;
         **/
         public function actionIndex() 
         {
-            $data = $this->model->getData();
-            $this->view->generate("MainView.php","TemplateView.php", $data);
+            $this->settings['data'] = $this->model->getData();
+            $this->view->generate("MainView.php","TemplateView.php",  $this->settings);
         }
 
     }

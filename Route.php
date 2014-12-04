@@ -7,7 +7,8 @@ class Route
     
     public $controllerName;
     public $actionName;
-    public $setting;
+    public $settings;
+    public $url;
     
     public $arrayUrl = array ("праздник" => array("Happy","index"),
                                "мэйн" => array("Main","index"));
@@ -20,13 +21,14 @@ class Route
         /*проверка существования класса и создание экземпляра*/
         if (class_exists ($this->controllerName)){
             $controller = new  $this->controllerName;
-            $controller -> settings = $this->param();
-            $controller -> settings["controller"] = $this->controllerName;
+            
+            $this->param();
+            $controller->settings = $this->settings;
+            
             $action = $this->actionName;
             
             /*вызыв метода контроллера и проверка его существования*/
             if(method_exists($controller, $action)){
-                $controller -> settings["action"] = $action;
                 $controller->$action();
             }
             else{
@@ -46,9 +48,10 @@ class Route
             $str = explode('&&', $get);
             for($i=0;$i<count($str);$i++){
                 $strstr = explode('=', $str[$i]);
-                $settings[$strstr[0]] = $strstr[1]; 
+                if(!empty($strstr[1])){
+                    $this->settings[$strstr[0]] = $strstr[1];
+                }
             }
-            return $settings;
         }
         else{
             return false;
@@ -59,10 +62,10 @@ class Route
     **/
     public function none(){
         $controller = new Controller404;
-        $controller->actionIndex();
         $controller -> settings = $this->param();
         $controller -> settings["controller"] = "Controller404";
         $controller -> settings["action"] = "actionIndex";
+        $controller->actionIndex();
     }
 
     /**
@@ -72,7 +75,9 @@ class Route
         $this->controllerName = "Main";  //Контроллер поумолчанию
         $this->actionName = "Index";     //Метод поумолчанию
         /*извлекаем контроллер и метод из url*/
-        $routes = explode('/', str_replace("?" . $_SERVER['QUERY_STRING'], "", $_SERVER['REQUEST_URI']));
+        $this->settings['url'] = $_SERVER['SERVER_NAME'] . str_replace("?" . $_SERVER['QUERY_STRING'], "", $_SERVER['REQUEST_URI']);
+        $routes = explode('/', $this->settings['url']);
+        
         if(!empty($routes[1])){
             $this->controllerName = urldecode($routes[1]);
             
@@ -97,6 +102,8 @@ class Route
                 }
             }
         }
+        $this -> settings["controller"] = ucfirst ($this->controllerName);
+        $this -> settings["action"] = ucfirst ($this->actionName);
         /*Добавление префиксов к именам контроллера и метода*/
         $this->controllerName = "\\controllers\\Controller" . ucfirst ($this->controllerName);
         $this->actionName = "action" . ucfirst ($this->actionName);
