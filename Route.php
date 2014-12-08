@@ -9,8 +9,7 @@ class Route
     public $actionName;
     public $settings;
     public $url;
-    
-    public $arrayUrl = array ("праздник" => array("Happy","index"),
+    static $arrayUrl = array ("праздник" => array("Happy","index"),
                                "мэйн" => array("Main","index"));
     /**
      * @run method
@@ -45,7 +44,7 @@ class Route
         /*извлекаем из url массив входных параметров*/
         $get = $_SERVER['QUERY_STRING'];
         if(!empty($get)){
-            $str = explode('&&', $get);
+            $str = explode('&', $get);
             for($i=0;$i<count($str);$i++){
                 $strstr = explode('=', $str[$i]);
                 if(!empty($strstr[1])){
@@ -93,7 +92,7 @@ class Route
     public function redirect(){
         $this->url();
         
-        foreach($this->arrayUrl as $key => $val){
+        foreach(self::$arrayUrl as $key => $val){
             if($this->controllerName == $key){
                 $this->controllerName = $val[0];
                 

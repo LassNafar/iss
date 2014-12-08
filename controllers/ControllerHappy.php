@@ -15,8 +15,8 @@ use models\ModelHappy;
         **/
         public function __construct()
         {
-            $this->view = new View;
             $this->model = new ModelHappy;
+            $this->view = new View($this->model->Auth());
         } 
 
         /**
@@ -25,7 +25,7 @@ use models\ModelHappy;
         public function actionIndex ()
         {
            $this->settings['data'] = $this->model->getData();
-           $this->view->generate("MainView.php","TemplateView.php", $this->settings);
+           $this->view->generate("MainView.php","TemplateView.php", $this->settings, $this->model);
         }
     }
 
