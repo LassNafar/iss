@@ -16,7 +16,7 @@ use models\ModelHappy;
         public function __construct()
         {
             $this->model = new ModelHappy;
-            $this->view = new View($this->model->Auth());
+            $this->view = new View();
         } 
 
         /**

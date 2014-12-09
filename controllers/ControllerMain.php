@@ -15,7 +15,7 @@ use models\ModelMain;
         public function __construct()
         {
             $this->model = new ModelMain;
-            $this->view = new View($this->model->Auth());
+            $this->view = new View();
         }
         
         /**
@@ -23,7 +23,6 @@ use models\ModelMain;
         **/
         public function actionIndex() 
         {
-            echo View::createUrl("/happy");
             $this->settings['data'] = $this->model->getData();
             $this->view->generate("MainView.php","TemplateView.php",  $this->settings);
         }

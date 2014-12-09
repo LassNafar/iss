@@ -7,7 +7,7 @@ class User
     private $login = "admin";
     private $password = "admin";
     private $status = "user";
-    private $name = "Aggravator";
+    private $name = "User";
     
     public function login($login, $pass)
     {

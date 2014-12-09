@@ -2,13 +2,14 @@
 namespace core;
 
 use vendor\User;
+
     class View
     {
         public $user;
         
-        public function __construct($user)
+        public function __construct()
         {
-            $this->user = $user;
+            $this->user = Model::$auth;
         }
 
                 /**
