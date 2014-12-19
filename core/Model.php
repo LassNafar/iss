@@ -1,7 +1,8 @@
 <?php
 namespace core;
 
-use vendor\User;
+use core\View;
+use models\ModelUser;
 
     class Model
     {
@@ -9,9 +10,9 @@ use vendor\User;
         
         public function __construct()
         {
-            self::$auth = new User;
-            if(array_key_exists("login", $_POST)&&array_key_exists("pass", $_POST)){
-                self::$auth->login($_POST["login"], $_POST["pass"]);
+            self::$auth = ModelUser::getObj();
+            if(array_key_exists("LOGIN", $_POST)&&array_key_exists("PASS", $_POST)){
+                self::$auth->login($_POST["LOGIN"], $_POST["PASS"]);
             }
             if(array_key_exists("exit", $_POST)){
                 self::$auth->logout();
@@ -22,5 +23,19 @@ use vendor\User;
         {
 
         }
+        
+        public function create()
+        {
+            
+        }
+        
+        public function save()
+        {
+            
+        }
+        
+        public function refresh()
+        {
+            header("Location: http://".$_SERVER['SERVER_NAME'].View::createUrl($_SERVER['REQUEST_URI']));
+        }
     }
-

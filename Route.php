@@ -10,7 +10,8 @@ class Route
     public $settings;
     public $url;
     static $arrayUrl = array ("праздник" => array("Happy","index"),
-                               "мэйн" => array("Main","index"));
+                              "мэйн" => array("Main","index"),
+                              "Регистрация" => array("Registry","index"));
     /**
      * @run method
     **/

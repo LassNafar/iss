@@ -4,6 +4,7 @@ namespace controllers;
 use core\Controller;
 use core\View;
 use models\ModelHappy;
+use models\ModelDb;
 
     class ControllerHappy extends Controller
     {
@@ -24,8 +25,9 @@ use models\ModelHappy;
         **/
         public function actionIndex ()
         {
+           $this->settings['form'] = $this->model->create();
            $this->settings['data'] = $this->model->getData();
-           $this->view->generate("MainView.php","TemplateView.php", $this->settings, $this->model);
+           $this->view->generate("TemplateView.php", "MainView.php", $this->settings);
         }
     }
 

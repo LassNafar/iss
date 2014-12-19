@@ -1,7 +1,7 @@
 <?php
 namespace core;
 
-use vendor\User;
+use models\ModelUser;
 
     class View
     {
@@ -17,7 +17,7 @@ use vendor\User;
         **/
         
         
-        public function generate($content_view, $template_view, $data = NULL)
+        public function generate($template_view, $content_view, $data = NULL)
         {
             include "views/" . $template_view;
         }

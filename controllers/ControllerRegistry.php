@@ -3,9 +3,9 @@ namespace controllers;
 
 use core\Controller;
 use core\View;
-use models\ModelHappy;
+use models\ModelRegistry;
 
-    class ControllerHappyend extends Controller
+    class ControllerRegistry extends Controller
     {
         public $settings;
         
@@ -15,7 +15,7 @@ use models\ModelHappy;
         **/
         public function __construct()
         {
-            $this->model = new ModelHappy;
+            $this->model = new ModelRegistry;
             $this->view = new View();
         } 
 
@@ -24,7 +24,8 @@ use models\ModelHappy;
         **/
         public function actionIndex ()
         {
-           $this->settings['data'] = "Happyend";
-           $this->view->generate("TemplateView.php", "MainView.php", $this->settings, $this->model);
+           $this->settings['form'] = $this->model->create();
+           $this->settings['data'] = $this->model->getData();
+           $this->view->generate("TemplateView.php", "RegistryView.php", $this->settings);
         }
     }

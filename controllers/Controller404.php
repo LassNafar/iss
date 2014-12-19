@@ -21,6 +21,6 @@ use core\View;
         public function actionIndex ()
         {
             $data = "404 NOT FOUND";
-            $this->view->generate("404View.php","TemplateView.php", $data);
+            $this->view->generate("TemplateView.php", "404View.php", $data);
         }
     }
