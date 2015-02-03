@@ -7,8 +7,8 @@
 <body style="width:1000px; background-color:yellow; text-align: center; margin: 0 auto;">
     <?php 
     if (is_array($content_view)) {
-        foreach ($content_view) {
-            include 'views/'.$content_view;
+        foreach ($content_view as $val) {
+            include 'views/'.$val;
         }
     }
     else {
